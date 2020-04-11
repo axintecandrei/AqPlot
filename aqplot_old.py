@@ -6,7 +6,7 @@ import pandas as pd
 import matplotlib
 import serial
 import time
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
 #import matplotlib.animation as animation
 import csv

@@ -1,6 +1,6 @@
+import sys
 from aqplot_model import Model
 from aqplot_view import *
-import sys
 from aqplot_serial import *
 
 
