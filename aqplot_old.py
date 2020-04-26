@@ -17,7 +17,7 @@ style.use('ggplot')
 device = 'COM3'
 baudrate = 250000
 run_meas = threading.Event()
-arduino_port = serial.Serial (device,
+'''arduino_port = serial.Serial (device,
                               baudrate = baudrate,
                               parity   = serial.PARITY_NONE,
                               stopbits = serial.STOPBITS_ONE,
@@ -26,7 +26,7 @@ arduino_port = serial.Serial (device,
                               dsrdtr   = False,
                               xonxoff  = False,
                               timeout  = None)
-
+'''
 matplotlib.use("TkAgg")
 figure = Figure(figsize=(5, 5), dpi=120)
 
@@ -97,7 +97,7 @@ def creat_base_canvas(fig):
     canvas = FigureCanvasTkAgg(fig, scope)
     canvas.show()
     canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=True)
-    toolbar = NavigationToolbar2TkAgg(canvas, scope)
+    toolbar = NavigationToolbar2Tk(canvas, scope)
     toolbar.update()
     canvas._tkcanvas.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
@@ -230,7 +230,7 @@ class ser_thread(threading.Thread):
                 print('2ms Counter = ', counter)
                 print('Footer = ', footer)
 
-SerialThread = ser_thread("Data_Aquisition", arduino_port)
+#SerialThread = ser_thread("Data_Aquisition", arduino_port)
 main_app = MainApplication()
 global statusbar
 statusbar = Statusbar()
@@ -245,5 +245,5 @@ scope.init_main_area()
 
 
 main_app.geometry('1080x720+0+0')
-SerialThread.start()
+#SerialThread.start()
 main_app.mainloop()

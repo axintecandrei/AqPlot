@@ -11,7 +11,7 @@ class View:
         self.create_signal_list()
         self.create_menu_bar()
         self.create_serial_panel()
-
+        self._translate = QtCore.QCoreApplication.translate
         '''
             The show() method shall be called ALWAYS after 
             the backyard is done and ready. 
@@ -150,7 +150,7 @@ class View:
         self.sel_baudR_combo_box.raise_()
 
     def open_file_dialog(self):
-        file_name, value = QtWidgets.QFileDialog.getOpenFileName(self.main_window, 'Choise a file')
+        file_name, value = QtWidgets.QFileDialog.getOpenFileName(self.main_window, 'Choose a file')
         return file_name
 
     def create_graph_view(self):
@@ -190,22 +190,22 @@ class View:
         self.sel_com_combo_box.addItems(items)
 
     def fill_up_baud_rate_list(self):
-        baud_rates = ["Select Baude rate", "9600", "14400", "19200", "38400", "57600", "115200", "128000", "256000"]
+        baud_rates = ["Select Baude rate", "9600", "14400", "19200", "38400", "57600", "115200", "128000", "256000", "750000", "1000000"]
         self.sel_baudR_combo_box.addItems(baud_rates)
 
     def pop_up_on_exit(self):
-        areYouSure = QtWidgets.QMessageBox.question(self, 'Exit', "Get Out?", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+        areYouSure = QtWidgets.QMessageBox.question(self.main_window, 'Exit', "Get Out?", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
         return areYouSure
 
     def retranslateUi(self):
-        _translate = QtCore.QCoreApplication.translate
-        self.main_window.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.open_meas_butt.setText(_translate("MainWindow", "Open Measurement"))
-        self.clr_scr.setText(_translate("MainWindow", "Clear Screen"))
-        self.signals_box_label.setText(_translate("MainWindow", "Signals"))
-        self.sel_com_label.setText(_translate("MainWindow", "Select COM"))
-        self.run_meas_butt.setText(_translate("MainWindow", "Run \n"" Measurement"))
-        self.connect_butt.setText(_translate("MainWindow", "Connect"))
-        self.refresh_com_butt.setText(_translate("MainWindow", "Refresh COM"))
-        self.baudR_com_label.setText(_translate("MainWindow", "Bauderate"))
+        self.main_window.setWindowTitle(self._translate("MainWindow", "MainWindow"))
+        self.open_meas_butt.setText(self._translate("MainWindow", "Open Measurement"))
+        self.clr_scr.setText(self._translate("MainWindow", "Clear Screen"))
+        self.signals_box_label.setText(self._translate("MainWindow", "Signals"))
+        self.sel_com_label.setText(self._translate("MainWindow", "Select COM"))
+        self.run_meas_butt.setText(self._translate("MainWindow", "Run \n"" Measurement"))
+        self.connect_butt.setText(self._translate("MainWindow", "Connect"))
+        self.refresh_com_butt.setText(self._translate("MainWindow", "Refresh COM"))
+        self.baudR_com_label.setText(self._translate("MainWindow", "Bauderate"))
+
 
