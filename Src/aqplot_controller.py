@@ -42,15 +42,17 @@ class Controller:
     '''
     def open_and_load_file(self):
         file_name = self.view.open_file_dialog()
-        if not file_name:
-            pass
-        else :
-            self.model.import_signals(file_name)
+
+        if self.model.import_signals(file_name) == "empty_file":
+            self.view.msg_box("Error", "The file is empty")
+        elif self.model.import_signals(file_name) == "no_data":
+            self.view.msg_box("Error", "The measurement has no data")
+        else:
             self.view.fill_up_signal_list(self.model.signal_names)
+
 
     def aq_plot(self, data):
         self.view.graphicsView.plot(data, pen='g')
-        #self.view.graphicsView.setLabel('left', 'Voltage', units='V')
 
     def add_signal_to_plot(self):
         selected_signal = self.view.signal_list_box.selectedItems()
@@ -98,7 +100,7 @@ class Controller:
         elif status is "stop":
             self.view.run_meas_butt.setText(self.view._translate("MainWindow", "Run \n Measurement"))
         else:
-            print("Connection not established or not configured")
+            self.view.msg_box("Error", "No connection established\nAbort")
 
     def c_serial_open_close_connection(self):
         serial_status = self.serial.serial_connection_control()
@@ -107,9 +109,9 @@ class Controller:
         elif serial_status is "serial_close":
             self.view.connect_butt.setText(self.view._translate("MainWindow", "Connect"))
         elif serial_status is "serial_error_access_denied":
-            print("Acces Denied")
+            self.view.msg_box("Error", "Acces Denied To COM")
         elif serial_status is "error_unknown":
-            print("Some error")
+            self.view.msg_box("Error", "Could not connect\n\nHint:\n-check the COM\n-port in use")
 
     def c_serial_end_meas_clbk(self):
 

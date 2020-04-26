@@ -65,15 +65,14 @@ class Model:
             if f != "":
                 try:
                     self.meas_data = pd.read_csv(f, low_memory=False)
-                    self.signal_names = self.meas_data.keys()
-                    self.number_of_signals = len(self.signal_names)
                 except:
-                      print("something not ok with file. TODO: catch 2-3 common errors, and display msg box")
-
-    def fill_data_base (self, data_values, last_pack_flag):
-        loc_dict = { }
-        if last_pack_flag:
-            pass
+                    return "empty_file"
+        if len(self.meas_data) != 0:
+            self.signal_names = self.meas_data.keys()
+            self.number_of_signals = len(self.signal_names)
+            return 0
+        else:
+            return "no_data"
 
     def scale(self, val, in_min, in_max, out_min, out_max):
         return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min

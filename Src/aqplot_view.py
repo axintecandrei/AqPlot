@@ -193,12 +193,15 @@ class View:
         baud_rates = ["Select Baude rate", "9600", "14400", "19200", "38400", "57600", "115200", "128000", "256000", "750000", "1000000"]
         self.sel_baudR_combo_box.addItems(baud_rates)
 
+    def msg_box(self,p_str_title,p_str_msg):
+        QtWidgets.QMessageBox.question(self.main_window,p_str_title,p_str_msg, QtWidgets.QMessageBox.Ok)
+
     def pop_up_on_exit(self):
-        areYouSure = QtWidgets.QMessageBox.question(self.main_window, 'Exit', "Get Out?", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+        areYouSure = QtWidgets.QMessageBox.question(self.main_window, 'Exit', 'Are you sure', QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No )
         return areYouSure
 
     def retranslateUi(self):
-        self.main_window.setWindowTitle(self._translate("MainWindow", "MainWindow"))
+        self.main_window.setWindowTitle(self._translate("MainWindow", "AqPlot"))
         self.open_meas_butt.setText(self._translate("MainWindow", "Open Measurement"))
         self.clr_scr.setText(self._translate("MainWindow", "Clear Screen"))
         self.signals_box_label.setText(self._translate("MainWindow", "Signals"))
