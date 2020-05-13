@@ -14,10 +14,10 @@ from matplotlib import style
 style.use('ggplot')
 
 # Globals
-device = 'COM3'
-baudrate = 250000
+device = 'COM6'
+baudrate = 115200
 run_meas = threading.Event()
-'''arduino_port = serial.Serial (device,
+arduino_port = serial.Serial (device,
                               baudrate = baudrate,
                               parity   = serial.PARITY_NONE,
                               stopbits = serial.STOPBITS_ONE,
@@ -26,7 +26,7 @@ run_meas = threading.Event()
                               dsrdtr   = False,
                               xonxoff  = False,
                               timeout  = None)
-'''
+
 matplotlib.use("TkAgg")
 figure = Figure(figsize=(5, 5), dpi=120)
 
@@ -95,7 +95,7 @@ class MainApplication(tk.Tk):
 
 def creat_base_canvas(fig):
     canvas = FigureCanvasTkAgg(fig, scope)
-    canvas.show()
+    canvas.draw()
     canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=True)
     toolbar = NavigationToolbar2Tk(canvas, scope)
     toolbar.update()
@@ -178,7 +178,7 @@ class ser_thread(threading.Thread):
                 self.first_time_flag = 0
                 speed_request = 16000
                 rx = chr(int(scale(speed_request, 0, 32000, 0, 127)))
-                self.ser.write(rx.encode())
+                #self.ser.write(rx.encode())
                 self.ser.close()
                 self.f.close()
             run_meas.wait()
@@ -191,7 +191,8 @@ class ser_thread(threading.Thread):
                 self.first_time_flag = 1
 
             speed_request = 24000
-            rx = chr(int(scale(speed_request, 0, 32000, 0, 127)))
+            #rx = chr(int(scale(speed_request, 0, 32000, 0, 127)))
+            rx = chr(0x31)
 
             if self.ser.isOpen() == False:
                 self.ser.open()
@@ -230,7 +231,7 @@ class ser_thread(threading.Thread):
                 print('2ms Counter = ', counter)
                 print('Footer = ', footer)
 
-#SerialThread = ser_thread("Data_Aquisition", arduino_port)
+SerialThread = ser_thread("Data_Aquisition", arduino_port)
 main_app = MainApplication()
 global statusbar
 statusbar = Statusbar()
@@ -245,5 +246,5 @@ scope.init_main_area()
 
 
 main_app.geometry('1080x720+0+0')
-#SerialThread.start()
+SerialThread.start()
 main_app.mainloop()

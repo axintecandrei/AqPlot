@@ -1,0 +1,16 @@
+HEADER=796737095
+/begin MEASUREMENT
+    signal_name: _200usCnt 
+    datatype: uint16
+    base_offset: 0
+    unit: 'us'
+    resolution: 0.0002
+/end MEASUREMENT
+
+/begin MEASUREMENT
+    signal_name: ring_buff_cnt 
+    datatype: uint16
+    base_offset: 2
+    unit: '-'
+    resolution: 1
+/end MEASUREMENT

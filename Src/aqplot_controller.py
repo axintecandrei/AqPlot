@@ -4,6 +4,7 @@ import serial
 import serial.tools.list_ports
 from aqplot_model import Model
 from aqplot_view import *
+from asammdf.gui.widgets.plot import Plot
 import csv
 
 
@@ -11,14 +12,15 @@ class Controller:
     def __init__(self):
         self.app = QtWidgets.QApplication([])
 
-        self.serial = SerThread("AqPlot")
         self.model = Model()
+        self.serial = SerThread("AqPlot", self.model)
         self.view = View(QtWidgets.QMainWindow())
 
-        self.view.open_meas_butt.clicked.connect(self.open_and_load_file)
+        self.view.open_meas_butt.clicked.connect(self.open_and_load_meas_file)
         self.view.clr_scr.clicked.connect(self.clear_graph)
         self.view.signal_list_box.itemSelectionChanged.connect(self.add_signal_to_plot)
-        self.view.openFileAction_menubar.triggered.connect(self.open_and_load_file)
+        self.view.openFileAction_menubar.triggered.connect(self.open_and_load_meas_file)
+        self.view.opendspAction_menubar.triggered.connect(self.open_and_load_dsp_file)
         self.view.exitAction_menubar.triggered.connect(self._quit)
         self.view.sel_com_combo_box.activated[str].connect(self.c_serial_select_com_port)
         self.view.sel_baudR_combo_box.activated[str].connect(self.c_serial_select_baud_rate)
@@ -40,24 +42,39 @@ class Controller:
     - plot sinagls to graph
     - other settings for plotter
     '''
-    def open_and_load_file(self):
-        file_name = self.view.open_file_dialog()
+    def open_and_load_meas_file(self):
+        file_name = self.view.open_file_dialog("*.mf4;*.csv")
+        import_status = self.model.import_signals(file_name)
 
-        if self.model.import_signals(file_name) == "empty_file":
+        if import_status == "empty_file":
             self.view.msg_box("Error", "The file is empty")
-        elif self.model.import_signals(file_name) == "no_data":
+        elif import_status == "no_data":
             self.view.msg_box("Error", "The measurement has no data")
         else:
             self.view.fill_up_signal_list(self.model.signal_names)
+            #self.aq_plot(self.model.signals)
 
+    def open_and_load_dsp_file(self):
+        file_name = self.view.open_file_dialog("*.txt")
+        import_status = self.model.import_signal_info(file_name)
+
+        if import_status == "empty_file":
+            self.view.msg_box("Error", "The file is empty")
+        elif import_status == "no_data":
+            self.view.msg_box("Error", "The measurement has no data")
+        else:
+            pass
 
     def aq_plot(self, data):
         self.view.graphicsView.plot(data, pen='g')
+        #self.view.plot.plot.add_new_channels(data)
 
     def add_signal_to_plot(self):
         selected_signal = self.view.signal_list_box.selectedItems()
         for signal in selected_signal:
             self.aq_plot(self.model.meas_data[signal.text()])
+        #self.aq_plot(self.model.signals)
+
 
     def clear_graph(self):
         self.view.graphicsView.clear()
@@ -129,9 +146,10 @@ class Controller:
 
 
 class SerThread(threading.Thread):
-    def __init__(self, thread_name):
+    def __init__(self, thread_name, model):
         super(SerThread, self).__init__()
         self.name = thread_name
+        self.model = model
         self.ser = serial.Serial()
         self.com_port_list = []
 
@@ -140,21 +158,18 @@ class SerThread(threading.Thread):
         self.DASHandler = { 'StandBy'    : self.DAS_State_StandBy,
                             'StartOfMeas': self.DAS_State_StartOfMeas,
                             'ReceiveData': self.DAS_State_ReceiveData,
-                            'SendAck'    : self.DAS_State_SendAck,
                             'StopMeas'   : self.DAS_State_StopMeas}
 
         self.commands = {'Cmd_StartMeas': chr(0x31).encode(),
-                         'Cmd_ACK'      : chr(0x35).encode(),
                          'Cmd_StopMeas' : chr(0x30).encode()}
 
-        self.input_pack_size = 26
-
+        self.input_pack_size = 16
     # gets called when thread is started with .start()
     def run(self):
         while True:
             self.com_port_list = serial.tools.list_ports.comports()
             if self.ser.is_open:
-                '''state machine handler will be called here'''
+                '''DAS state machine handler '''
                 self.DASHandler[self.DasState]()
 
     def serial_connection_control(self):
@@ -186,11 +201,33 @@ class SerThread(threading.Thread):
 
     def serial_rx(self, nr_of_bytes):
         while self.ser.inWaiting() >= nr_of_bytes:
-            data = []
+            ecu_pack = []
             line = self.ser.read(nr_of_bytes)
-            for char in range(len(line)):
-                data.append(line[char])
-            self.csv_out.writerow(data)
+            for char in line:
+                ecu_pack.append(char)
+            ecu_pack[9] = self.ser.inWaiting()
+            '''send data to model for processing'''
+            self.model.get_pack_from_ecu(ecu_pack)
+
+            #ecu_pack[4] = ecu_pack[0]
+            #ecu_pack[0] = ecu_pack[11] | (ecu_pack[12] << 8) | (ecu_pack[13] << 16) | (ecu_pack[14] << 24)  # 200 us cnt
+            #ecu_pack[1] = ecu_pack[1] | (ecu_pack[2] <<8) #dma isr cnt
+            #ecu_pack[2] = self.ser.inWaiting()
+            #ecu_pack[3] = ecu_pack[3] | (ecu_pack[4] <<8) #ring buff cnt
+            #ecu_pack[5] = ecu_pack[5] | (ecu_pack[6] << 8)  # head real
+            #ecu_pack[6] = ecu_pack[7] | (ecu_pack[8] << 8)  # tail real
+            #ecu_pack[7] = self.loop_cnt
+            #ecu_pack[8] = 0
+            #ecu_pack[14] = 0
+            #ecu_pack[11] = 0
+            #ecu_pack[12] = 0
+            #ecu_pack[13] = 0
+            #self.csv_out.writerow(ecu_pack)
+
+
+    def serial_reset_port_buffers(self):
+        self.ser.reset_input_buffer()
+        self.ser.reset_output_buffer()
 
     def set_port(self, port):
         self.ser.setPort(port)
@@ -215,41 +252,41 @@ class SerThread(threading.Thread):
 
         """ temporary data output too meas file
         Latter this will be send to controller and next to model"""
-        self.f = open('output_test.csv', 'w+')
-        self.name_list = ["byte0,",
-                          "byte1,",
-                          "byte2,",
-                          "byte3,",
-                          "byte4,",
-                          "byte5,",
-                          "byte6,",
-                          "byte7,",
-                          "byte8,",
-                          "byte9,",
-                          "byte10,",
-                          "byte11,","byte12,","byte13,","byte14,","byte15,","byte16,","byte17,","byte18,","byte19,",
-                          "byte20,","byte21,","byte22,","byte23,","byte24,","byte25,","byte26,"]
+        #self.f = open('../TestManager/output_test.csv', 'w+')
+        #self.name_list = ['Time',
+        #                  'DmaLoopsCnt',
+        #                  'Bytes InWaiting',
+        #                  'ring buffer Cnt real',
+        #                  'header',
+        #                  'head real',
+        #                  'tail real',
+        #                  'ser rx loops',
+        #                  'byte8',
+        #                  'byte9',
+        #                  'TessDasStates',
+        #                  'byte11','byte12','byte13', 'byte14','footer']
 
-        self.csv_out = csv.writer(self.f, dialect='excel-tab')
-        self.csv_out.writerow("sep=,")
-        self.csv_out.writerow(self.name_list)
-
+        #self.csv_out = csv.writer(self.f, dialect='excel')
+        #self.csv_out.writerow(self.name_list)
 
         self.serial_tx(self.commands['Cmd_StartMeas'])
         self.DasState = 'ReceiveData'
 
     def DAS_State_ReceiveData(self):
         self.serial_rx(self.input_pack_size)
-        self.DasState = 'SendAck'
 
-    def DAS_State_SendAck(self):
-        self.serial_tx(self.commands['Cmd_ACK'])
-        self.DasState = 'ReceiveData'
 
     def DAS_State_StopMeas(self):
-        print("stop of meas")
+        self.serial_tx(self.commands['Cmd_StopMeas'])
+        self.model.save_measurement()
+        #self.f.close()
 
-        self.f.close()
+
+        # reconfigure port to flush all data from buffers
+        # this way the next run data will be all new
+        self.ser.close()
+        self.ser.open()
+        print("stop of meas")
         self.DasState = 'StandBy'
 
 

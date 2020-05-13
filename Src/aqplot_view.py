@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from pyqtgraph import PlotWidget
-
+from asammdf.gui.widgets.plot import Plot
+from asammdf.gui.widgets.list import ListWidget
 class View:
     def __init__(self, MainWindow):
         self.main_window = MainWindow
@@ -64,10 +65,16 @@ class View:
         self.fileMenu = self.mainMenu.addMenu('&File')
 
 
-        self.openFileAction_menubar = QtWidgets.QAction("&Open...", self.main_window)
+        self.openFileAction_menubar = QtWidgets.QAction("&Open Measurement", self.main_window)
         self.openFileAction_menubar.setShortcut("Ctrl+O")
-        self.openFileAction_menubar.setStatusTip('Open a txt file')
+        self.openFileAction_menubar.setStatusTip('Open a measurement file')
         self.fileMenu.addAction(self.openFileAction_menubar)
+
+        self.opendspAction_menubar = QtWidgets.QAction("&Load signal info", self.main_window)
+        self.opendspAction_menubar.setShortcut("Ctrl+Shift+O")
+        self.opendspAction_menubar.setStatusTip('Load some sort of a2l file')
+        self.fileMenu.addAction(self.opendspAction_menubar)
+
         self.exitAction_menubar = QtWidgets.QAction("&Exit", self.main_window)
         self.exitAction_menubar.setShortcut("Ctrl+Q")
         self.exitAction_menubar.setStatusTip('Leave the app from menu bar')
@@ -149,15 +156,23 @@ class View:
         self.baudR_com_label.raise_()
         self.sel_baudR_combo_box.raise_()
 
-    def open_file_dialog(self):
-        file_name, value = QtWidgets.QFileDialog.getOpenFileName(self.main_window, 'Choose a file')
+    def open_file_dialog(self, filter_file_ext):
+        file_name, value = QtWidgets.QFileDialog.getOpenFileName(self.main_window, 'Choose a file', filter=filter_file_ext)
         return file_name
 
     def create_graph_view(self):
-        self.graphicsView = PlotWidget(self.centralwidget)#axisItems={'bottom': TimeAxisItem(orientation='bottom')})
+        self.graphicsView = PlotWidget(self.centralwidget)
         self.graphicsView.setMinimumSize(QtCore.QSize(893, 582))
         self.graphicsView.setObjectName("graphicsView")
         self.central_gridLayout.addWidget(self.graphicsView)
+
+        #self.plot = Plot({}, False, self)
+        #self.plot.setMinimumSize(QtCore.QSize(893, 582))
+        #self.plot.setObjectName("graphicsView")
+        #self.central_gridLayout.addWidget(self.plot)
+        #self.plot.show()
+        #self.plot.plot.viewbox.setXRange(0, 10)
+
 
     def create_signal_list(self):
         self.signals_box_label = QtWidgets.QLabel(self.butt_frame)
@@ -175,14 +190,16 @@ class View:
         self.signals_box_label.setObjectName("signals_box_label")
 
         self.signal_list_box = QtWidgets.QListWidget(self.butt_frame)
+        #self.signal_list_box = ListWidget(self.butt_frame)
         self.signal_list_box.setGeometry(QtCore.QRect(10, 120, 201, 281))
         self.signal_list_box.setObjectName("listWidget")
         self.signal_list_box.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
         self.signals_box_label.raise_()
+        #self.signal_list_box.addItem("signal")
 
     def fill_up_signal_list(self, signal_name):
         self.signal_list_box.clear()
-        for signal in signal_name[1:]:
+        for signal in signal_name:
             self.signal_list_box.addItem(signal)
 
     def fill_up_COM_list(self, items):
