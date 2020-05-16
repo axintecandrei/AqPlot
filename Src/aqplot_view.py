@@ -75,10 +75,10 @@ class View:
         self.opendspAction_menubar.setStatusTip('Load some sort of a2l file')
         self.fileMenu.addAction(self.opendspAction_menubar)
 
-        self.exitAction_menubar = QtWidgets.QAction("&Exit", self.main_window)
-        self.exitAction_menubar.setShortcut("Ctrl+Q")
-        self.exitAction_menubar.setStatusTip('Leave the app from menu bar')
-        self.fileMenu.addAction(self.exitAction_menubar)
+        self.save_measAction_menubar = QtWidgets.QAction("&Save Measurement", self.main_window)
+        self.save_measAction_menubar.setShortcut("Ctrl+S")
+        self.save_measAction_menubar.setStatusTip('Save the acquired data into a mdf file')
+        self.fileMenu.addAction(self.save_measAction_menubar)
 
         self.helpMenu = self.mainMenu.addMenu('&Help')
         self.about = QtWidgets.QAction("&About", self.main_window)
@@ -156,9 +156,6 @@ class View:
         self.baudR_com_label.raise_()
         self.sel_baudR_combo_box.raise_()
 
-    def open_file_dialog(self, filter_file_ext):
-        file_name, value = QtWidgets.QFileDialog.getOpenFileName(self.main_window, 'Choose a file', filter=filter_file_ext)
-        return file_name
 
     def create_graph_view(self):
         self.graphicsView = PlotWidget(self.centralwidget)
@@ -172,7 +169,6 @@ class View:
         #self.central_gridLayout.addWidget(self.plot)
         #self.plot.show()
         #self.plot.plot.viewbox.setXRange(0, 10)
-
 
     def create_signal_list(self):
         self.signals_box_label = QtWidgets.QLabel(self.butt_frame)
@@ -210,12 +206,25 @@ class View:
         baud_rates = ["Select Baude rate", "9600", "14400", "19200", "38400", "57600", "115200", "128000", "256000", "750000", "1000000"]
         self.sel_baudR_combo_box.addItems(baud_rates)
 
+    def open_file_dialog(self, filter_file_ext):
+        file_name, value = QtWidgets.QFileDialog.getOpenFileName(self.main_window, 'Choose a file', filter=filter_file_ext)
+        return file_name
+
+    def get_dir_path(self, window_title):
+        path = QtWidgets.QFileDialog.getExistingDirectory(self.main_window, window_title)
+        return path
+
     def msg_box(self,p_str_title,p_str_msg):
         QtWidgets.QMessageBox.question(self.main_window,p_str_title,p_str_msg, QtWidgets.QMessageBox.Ok)
 
-    def pop_up_on_exit(self):
-        areYouSure = QtWidgets.QMessageBox.question(self.main_window, 'Exit', 'Are you sure', QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No )
-        return areYouSure
+    def ask_user_binary_question(self, window_title, question):
+        user_reply = QtWidgets.QMessageBox.question(self.main_window, window_title, question,
+                                                    QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+        return user_reply
+
+    def get_string_from_user(self, window_title, suggestion):
+        str, value = QtWidgets.QInputDialog.getText(self.main_window, window_title, suggestion)
+        return str
 
     def retranslateUi(self):
         self.main_window.setWindowTitle(self._translate("MainWindow", "AqPlot"))

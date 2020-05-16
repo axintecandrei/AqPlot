@@ -2,14 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1de8c07e-54ff-46c1-a5f0-d37bfcdf1c53" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/TestManager/test_pandas.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestManager/test_pyqtgrapsh.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Src/aqplot_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/Src/aqplot_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Src/aqplot_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Src/aqplot_model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Src/aqplot_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/Src/aqplot_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestManager/output_test.csv" beforeDir="false" afterPath="$PROJECT_DIR$/TestManager/output_test.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zArchive/aqplot_old.py" beforeDir="false" afterPath="$PROJECT_DIR$/zArchive/aqplot_old.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestManager/display_file_test.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestManager/meas_empty.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestManager/meas_full_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestManager/meas_no_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestManager/output_test.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestManager/output_test_.mf4" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,26 +187,26 @@
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589136665923" />
     <state x="2660" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589135696364" />
-    <state width="1877" height="275" key="GridCell.Tab.0.bottom" timestamp="1589384603307">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1877" height="329" key="GridCell.Tab.0.bottom" timestamp="1589658298449">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="207" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589209516069" />
-    <state width="1877" height="275" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589384603307" />
-    <state width="1877" height="275" key="GridCell.Tab.0.center" timestamp="1589384603307">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1877" height="329" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589658298449" />
+    <state width="1877" height="329" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589637828250" />
+    <state width="1877" height="329" key="GridCell.Tab.0.center" timestamp="1589658298449">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="207" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589209516069" />
-    <state width="1877" height="275" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589384603307" />
-    <state width="1877" height="275" key="GridCell.Tab.0.left" timestamp="1589384603307">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1877" height="329" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589658298449" />
+    <state width="1877" height="329" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589637828250" />
+    <state width="1877" height="329" key="GridCell.Tab.0.left" timestamp="1589658298448">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="207" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589209516069" />
-    <state width="1877" height="275" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589384603307" />
-    <state width="1877" height="275" key="GridCell.Tab.0.right" timestamp="1589384603307">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1877" height="329" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589658298448" />
+    <state width="1877" height="329" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589637828250" />
+    <state width="1877" height="329" key="GridCell.Tab.0.right" timestamp="1589658298449">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="207" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589209516069" />
-    <state width="1877" height="275" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589384603307" />
+    <state width="1877" height="329" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589658298449" />
+    <state width="1877" height="329" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589637828250" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1588100447926">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
