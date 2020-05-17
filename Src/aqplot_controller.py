@@ -20,6 +20,7 @@ class Controller:
         self.view.signal_list_box.itemSelectionChanged.connect(self.add_signal_to_plot)
         self.view.openFileAction_menubar.triggered.connect(self.open_and_load_meas_file)
         self.view.opendspAction_menubar.triggered.connect(self.open_and_load_dsp_file)
+        self.view.save_measAction_menubar.triggered.connect(self.model.save_measurement_mdf)
         self.view.sel_com_combo_box.activated[str].connect(self.c_serial_select_com_port)
         self.view.sel_baudR_combo_box.activated[str].connect(self.c_serial_select_baud_rate)
         self.view.fill_up_baud_rate_list()
@@ -41,7 +42,6 @@ class Controller:
     - other settings for plotter
     '''
     def open_and_load_meas_file(self):
-        print(self.view.ask_user_binary_question("Provide file name", 'file name'))
         file_name = self.view.open_file_dialog("*.mf4;*.csv")
         import_status = self.model.import_signals(file_name)
 
