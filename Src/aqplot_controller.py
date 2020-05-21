@@ -60,8 +60,10 @@ class Controller:
             self.view.msg_box("Error", "The file is empty")
         elif import_status == "no_data":
             self.view.msg_box("Error", "The measurement has no data")
-        else:
+        elif import_status == "SomeError":
             self.view.msg_box("Error", "Unknown")
+        else:
+            self.view.msg_box("Info", "File succesfully imported")
 
     def aq_plot(self, data):
         self.view.graphicsView.plot(data, pen='g')
@@ -158,7 +160,7 @@ class SerThread(threading.Thread):
         self.commands = {'Cmd_StartMeas': chr(0x31).encode(),
                          'Cmd_StopMeas' : chr(0x30).encode()}
 
-        self.input_pack_size = 20
+        self.input_pack_size = 30
     # gets called when thread is started with .start()
     def run(self):
         while True:
@@ -197,7 +199,8 @@ class SerThread(threading.Thread):
     def serial_rx(self, nr_of_bytes):
         while self.ser.inWaiting() >= nr_of_bytes:
             ecu_pack = list(self.ser.read(nr_of_bytes))
-            ecu_pack[9] = self.ser.inWaiting()
+            #print(ecu_pack)
+            ecu_pack[24] = self.ser.inWaiting()
             '''send data to model for processing'''
             self.model.get_pack_from_ecu(ecu_pack)
 

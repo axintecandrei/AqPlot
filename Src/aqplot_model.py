@@ -9,11 +9,8 @@ class Model:
         self.preSignal_list = []
         self.Signal_list = []
         self.timestamp = []
-        self.signal_sample = {}
-        self.dsp_header_id = 796737095
-        self.dsp_tags_tuple = ('SignalName','Size',	'ByteOffset','Unit','Resolution')
         self.import_signal_info('d:\casdev\sbxs\github_com\TESS\TESS_Sim\Measurements\_signal_info.csv')
-        self.meas_inc = 0
+        self.save_ok = 0
 
     def import_signals(self, file_name):
         with open(file_name, newline='') as f:
@@ -43,6 +40,7 @@ class Model:
             - unit
             - resolution
         '''
+        self.preSignal_list.clear()
         return_msg = 0
         with open(signal_info_file) as dsp:
             if dsp != "":
@@ -51,7 +49,7 @@ class Model:
                                                    names=['SignalName','Size','ByteOffset','Unit','Resolution'],
                                                    skiprows=1)
                 except:
-                    return_msg= "some_error"
+                    return_msg= "SomeError"
                     return return_msg
             else:
                 return_msg = "empty_file"
@@ -59,6 +57,8 @@ class Model:
 
         if len(self.dsp_content) != 0:
             for signal_idx in range(self.dsp_content.SignalName.count()):
+                # check if all field are not Nan
+                #TODO
                 pre_signal = preSignal(name=self.dsp_content.SignalName[signal_idx],
                                        samples=[],
                                        size=self.dsp_content.Size[signal_idx],
@@ -69,8 +69,6 @@ class Model:
         else:
             return_msg = "no_data"
             return return_msg
-
-        return return_msg
 
     def get_pack_from_ecu(self, ecu_pack):
         # get the received package and arrange each sample to the proper signal
@@ -98,38 +96,39 @@ class Model:
         #ask user if wants to save the measurement
         yes = 16384
         no = 65536
-        user_reply = self.view.ask_user_binary_question('Save Measurement', 'Want to save measurement?')
-        if user_reply == yes:
-            #create timestamp
-            timestamps = []
-            for sample_idx in range(len(self.preSignal_list[0].samples)):
-                timestamps.append(sample_idx * 0.0002)
+        #check if there is something to be saved
+        if self.preSignal_list[0].samples:
+            user_reply = self.view.ask_user_binary_question('Save Measurement', 'Want to save measurement?')
+            if user_reply == yes:
+                #create timestamp
+                timestamps = []
+                for sample_idx in range(len(self.preSignal_list[0].samples)):
+                    timestamps.append(sample_idx * 0.0002)
 
-            #create the Signal list with the members from preSignal ones
-            for presignal in self.preSignal_list:
-
-                signal = Signal(samples=np.array(presignal.samples, dtype=presignal.dtype),
-                                timestamps=np.array(timestamps, dtype=np.float32),
-                                name=presignal.name,
-                                unit=presignal.unit
-                                )
-                self.Signal_list.append(signal)
-            meas_path = self.view.get_dir_path("Select folder")
-            meas_file_name = self.view.get_string_from_user("","Measurement name")
-
-            #meas_path = "d:\casdev\sbxs\github_com\AqPlot\TestManager"
-            #meas_file_name = "\output_test_" + str(self.meas_inc)
-            self.meas_inc = self.meas_inc + 1
-            with MDF(version='4.10') as new_meas:
-                new_meas.append(self.Signal_list, "AqPlot")
-                new_meas.save(meas_path +'/' + meas_file_name)
-            self.view.msg_box("Info", "Succesfull!")
-        elif user_reply == no:
-            pass
-        #discard all data
-        for preSignal in self.preSignal_list:
-            preSignal.samples.clear()
-        self.Signal_list.clear()
+                #create the Signal list with the members from preSignal ones
+                for presignal in self.preSignal_list:
+                    signal = Signal(samples=np.array(presignal.samples, dtype=presignal.dtype),
+                                    timestamps=np.array(timestamps, dtype=np.float32),
+                                    name=presignal.name,
+                                    unit=presignal.unit
+                                    )
+                    self.Signal_list.append(signal)
+                meas_path = self.view.get_dir_path("Select folder")
+                meas_file_name = self.view.get_string_from_user("","Measurement name")
+                with MDF(version='4.10') as new_meas:
+                    new_meas.append(self.Signal_list, "AqPlot")
+                    new_meas.save(meas_path +'/' + meas_file_name)
+                self.save_ok = 1
+                self.view.msg_box("Info", "Succesfull!")
+            elif user_reply == no:
+                pass
+            #discard all data
+            if  self.save_ok:
+                for preSignal in self.preSignal_list:
+                    preSignal.samples.clear()
+                self.Signal_list.clear()
+        else:
+            self.view.msg_box("Info", "Nothing to save.")
 
 
     def scale(self, val, in_min, in_max, out_min, out_max):
@@ -158,22 +157,25 @@ class preSignal(object):
     def covert_due_to_size(self, ecu_sample_pack):
         merged_sample = 0
         if abs(self.size) == 1:
-            merged_sample= ecu_sample_pack[self.byteoffset]
+            merged_sample = ecu_sample_pack[self.byteoffset]
             if self.size < 0:
                 self.dtype = np.int8
+                merged_sample = np.cast['int8'](merged_sample - 128)
             else:
                 self.dtype = np.uint8
         elif abs(self.size) == 2:
-            merged_sample = ecu_sample_pack[self.byteoffset] | ecu_sample_pack[self.byteoffset + 1]<< 8
+            merged_sample = ecu_sample_pack[self.byteoffset] | (ecu_sample_pack[self.byteoffset + 1]<< 8)
             if self.size < 0:
                 self.dtype = np.int16
+                merged_sample = np.cast['int16'](merged_sample - 32768)
             else:
                 self.dtype = np.uint16
         elif abs(self.size) == 4:
-            merged_sample = ecu_sample_pack[self.byteoffset] | ecu_sample_pack[self.byteoffset + 1] << 8 | \
-                            ecu_sample_pack[self.byteoffset + 2] << 16 | ecu_sample_pack[self.byteoffset + 3] << 24
+            merged_sample = ecu_sample_pack[self.byteoffset] | (ecu_sample_pack[self.byteoffset + 1] << 8) | \
+                            (ecu_sample_pack[self.byteoffset + 2] << 16) | (ecu_sample_pack[self.byteoffset + 3] << 24)
             if self.size < 0:
                 self.dtype = np.int32
+                merged_sample = np.cast['int32'](merged_sample - 2147483648)
             else:
                 self.dtype = np.uint32
         if self.resolution < 1:
