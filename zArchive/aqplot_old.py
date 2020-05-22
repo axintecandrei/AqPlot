@@ -6,7 +6,7 @@ import pandas as pd
 import matplotlib
 import serial
 import time
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
 #import matplotlib.animation as animation
 import csv
@@ -14,8 +14,8 @@ from matplotlib import style
 style.use('ggplot')
 
 # Globals
-device = 'COM3'
-baudrate = 250000
+device = 'COM6'
+baudrate = 115200
 run_meas = threading.Event()
 arduino_port = serial.Serial (device,
                               baudrate = baudrate,
@@ -95,9 +95,9 @@ class MainApplication(tk.Tk):
 
 def creat_base_canvas(fig):
     canvas = FigureCanvasTkAgg(fig, scope)
-    canvas.show()
+    canvas.draw()
     canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=True)
-    toolbar = NavigationToolbar2TkAgg(canvas, scope)
+    toolbar = NavigationToolbar2Tk(canvas, scope)
     toolbar.update()
     canvas._tkcanvas.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
@@ -178,7 +178,7 @@ class ser_thread(threading.Thread):
                 self.first_time_flag = 0
                 speed_request = 16000
                 rx = chr(int(scale(speed_request, 0, 32000, 0, 127)))
-                self.ser.write(rx.encode())
+                #self.ser.write(rx.encode())
                 self.ser.close()
                 self.f.close()
             run_meas.wait()
@@ -191,7 +191,8 @@ class ser_thread(threading.Thread):
                 self.first_time_flag = 1
 
             speed_request = 24000
-            rx = chr(int(scale(speed_request, 0, 32000, 0, 127)))
+            #rx = chr(int(scale(speed_request, 0, 32000, 0, 127)))
+            rx = chr(0x31)
 
             if self.ser.isOpen() == False:
                 self.ser.open()

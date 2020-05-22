@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1148</width>
-    <height>600</height>
+    <width>1301</width>
+    <height>852</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,6 +26,9 @@
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
       </property>
+      <property name="styleSheet">
+       <string notr="true">border-right-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(0, 0, 0, 255), stop:0.19397 rgba(0, 0, 0, 255), stop:0.202312 rgba(122, 97, 0, 255), stop:0.495514 rgba(76, 58, 0, 255), stop:0.504819 rgba(255, 255, 255, 255), stop:0.79 rgba(255, 255, 255, 255), stop:1 rgba(255, 158, 158, 255));</string>
+      </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
@@ -37,7 +40,7 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>201</width>
+         <width>211</width>
          <height>31</height>
         </rect>
        </property>
@@ -49,7 +52,7 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>201</width>
+         <width>212</width>
          <height>31</height>
         </size>
        </property>
@@ -61,26 +64,30 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>50</y>
-         <width>201</width>
+         <y>380</y>
+         <width>211</width>
          <height>31</height>
         </rect>
        </property>
        <property name="maximumSize">
         <size>
-         <width>201</width>
-         <height>31</height>
+         <width>250</width>
+         <height>1000</height>
         </size>
        </property>
        <property name="text">
-        <string>Clear Screen</string>
+        <string>Plot</string>
+       </property>
+       <property name="icon">
+        <iconset theme="d:\casdev\sbxs\github_com\AqPlot\Src\GUI\plot_icon.png">
+         <normaloff>.</normaloff>.</iconset>
        </property>
       </widget>
       <widget class="QLabel" name="signals_box_label">
        <property name="geometry">
         <rect>
-         <x>11</x>
-         <y>85</y>
+         <x>10</x>
+         <y>50</y>
          <width>60</width>
          <height>29</height>
         </rect>
@@ -124,8 +131,8 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>120</y>
-         <width>201</width>
+         <y>90</y>
+         <width>211</width>
          <height>281</height>
         </rect>
        </property>
@@ -134,8 +141,8 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>450</y>
-         <width>111</width>
+         <y>460</y>
+         <width>211</width>
          <height>21</height>
         </rect>
        </property>
@@ -147,7 +154,7 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>111</width>
+         <width>211</width>
          <height>21</height>
         </size>
        </property>
@@ -156,7 +163,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>420</y>
+         <y>430</y>
          <width>111</width>
          <height>29</height>
         </rect>
@@ -164,7 +171,7 @@
        <property name="minimumSize">
         <size>
          <width>91</width>
-         <height>29</height>
+         <height>21</height>
         </size>
        </property>
        <property name="maximumSize">
@@ -200,8 +207,8 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>530</y>
-         <width>201</width>
+         <y>550</y>
+         <width>211</width>
          <height>41</height>
         </rect>
        </property>
@@ -225,22 +232,22 @@
       <widget class="QPushButton" name="connect_butt">
        <property name="geometry">
         <rect>
-         <x>130</x>
-         <y>480</y>
+         <x>140</x>
+         <y>490</y>
          <width>81</width>
-         <height>41</height>
+         <height>52</height>
         </rect>
        </property>
        <property name="minimumSize">
         <size>
          <width>81</width>
-         <height>41</height>
+         <height>29</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>81</width>
-         <height>41</height>
+         <height>100</height>
         </size>
        </property>
        <property name="text">
@@ -251,7 +258,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>470</y>
+         <y>490</y>
          <width>111</width>
          <height>29</height>
         </rect>
@@ -295,7 +302,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>500</y>
+         <y>520</y>
          <width>111</width>
          <height>21</height>
         </rect>
@@ -316,26 +323,64 @@
       <widget class="QPushButton" name="refresh_com_butt">
        <property name="geometry">
         <rect>
-         <x>130</x>
-         <y>450</y>
-         <width>81</width>
-         <height>21</height>
+         <x>170</x>
+         <y>420</y>
+         <width>51</width>
+         <height>31</height>
         </rect>
        </property>
        <property name="minimumSize">
         <size>
-         <width>81</width>
-         <height>21</height>
+         <width>0</width>
+         <height>0</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>81</width>
-         <height>21</height>
+         <width>200</width>
+         <height>200</height>
         </size>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::TabFocus</enum>
+       </property>
+       <property name="acceptDrops">
+        <bool>false</bool>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(28, 244, 255);
+border-color: rgb(255, 255, 0);</string>
+       </property>
        <property name="text">
-        <string>Refresh COM</string>
+        <string>R</string>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="default">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="PlotWidget" name="graphicsView">
+       <property name="geometry">
+        <rect>
+         <x>255</x>
+         <y>0</y>
+         <width>1011</width>
+         <height>821</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>893</width>
+         <height>582</height>
+        </size>
        </property>
       </widget>
       <zorder>signals_box_label</zorder>
@@ -349,16 +394,7 @@
       <zorder>baudR_com_label</zorder>
       <zorder>sel_baudR_combo_box</zorder>
       <zorder>refresh_com_butt</zorder>
-     </widget>
-    </item>
-    <item>
-     <widget class="PlotWidget" name="graphicsView">
-      <property name="minimumSize">
-       <size>
-        <width>893</width>
-        <height>582</height>
-       </size>
-      </property>
+      <zorder>graphicsView</zorder>
      </widget>
     </item>
    </layout>
