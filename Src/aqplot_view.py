@@ -1,15 +1,15 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from pyqtgraph import PlotWidget
-from asammdf.gui.widgets.plot import Plot
+#from pyqtgraph import PlotWidget
+from asammdf.gui.widgets.plot import Plot, PlotSignal
+from asammdf.gui.widgets.plot_standalone import PlotWindow
 from asammdf.gui.widgets.list import ListWidget
+from asammdf.gui.widgets.tree import TreeWidget
 class View:
     def __init__(self, MainWindow):
         self.main_window = MainWindow
         self.main_frame_init()
         self.create_graph_view()
-        self.create_open_meas_butt()
-        self.create_clr_scr_butt()
-        self.create_signal_list()
+        self.create_signal_panel()
         self.create_menu_bar()
         self.create_serial_panel()
         self._translate = QtCore.QCoreApplication.translate
@@ -17,8 +17,9 @@ class View:
             The show() method shall be called ALWAYS after 
             the backyard is done and ready. 
         '''
+
         self.retranslateUi()
-        self.main_window.show()
+        self.main_window.showMaximized()
 
     def main_frame_init(self):
         self.main_window.setObjectName("MainWindow")
@@ -43,21 +44,6 @@ class View:
 
         QtCore.QMetaObject.connectSlotsByName(self.main_window)
 
-    def create_open_meas_butt(self):
-        self.open_meas_butt = QtWidgets.QPushButton(self.butt_frame)
-        self.open_meas_butt.setGeometry(QtCore.QRect(10, 10, 201, 31))
-        self.open_meas_butt.setMinimumSize(QtCore.QSize(201, 31))
-        self.open_meas_butt.setMaximumSize(QtCore.QSize(201, 31))
-        self.open_meas_butt.setObjectName("open_meas_butt")
-        self.open_meas_butt.raise_()
-
-    def create_clr_scr_butt(self):
-        self.clr_scr = QtWidgets.QPushButton(self.butt_frame)
-        self.clr_scr.setGeometry(QtCore.QRect(10, 50, 201, 31))
-        self.clr_scr.setMinimumSize(QtCore.QSize(201, 31))
-        self.clr_scr.setMaximumSize(QtCore.QSize(201, 31))
-        self.clr_scr.setObjectName("clr_scr")
-        self.clr_scr.raise_()
 
     def create_menu_bar(self):
         self.mainMenu = self.main_window.menuBar()
@@ -76,7 +62,7 @@ class View:
         self.fileMenu.addAction(self.opendspAction_menubar)
 
         self.save_measAction_menubar = QtWidgets.QAction("&Save Measurement", self.main_window)
-        self.save_measAction_menubar.setShortcut("Ctrl+S")
+        self.save_measAction_menubar.setShortcut("Ctrl+Alt+S")
         self.save_measAction_menubar.setStatusTip('Save the acquired data into a mdf file')
         self.fileMenu.addAction(self.save_measAction_menubar)
 
@@ -92,33 +78,35 @@ class View:
 
     def create_serial_panel(self):
         self.sel_com_combo_box = QtWidgets.QComboBox(self.butt_frame)
-        self.sel_com_combo_box.setGeometry(QtCore.QRect(10, 450, 111, 21))
+        self.sel_com_combo_box.setGeometry(QtCore.QRect(10, 460, 211, 21))
         self.sel_com_combo_box.setMinimumSize(QtCore.QSize(111, 21))
-        self.sel_com_combo_box.setMaximumSize(QtCore.QSize(111, 21))
+        self.sel_com_combo_box.setMaximumSize(QtCore.QSize(211, 21))
         self.sel_com_combo_box.setObjectName("sel_com_combo_box")
 
         self.sel_baudR_combo_box = QtWidgets.QComboBox(self.butt_frame)
-        self.sel_baudR_combo_box.setGeometry(QtCore.QRect(10, 500, 111, 21))
+        self.sel_baudR_combo_box.setGeometry(QtCore.QRect(10, 520, 111, 21))
         self.sel_baudR_combo_box.setMinimumSize(QtCore.QSize(111, 21))
-        self.sel_baudR_combo_box.setMaximumSize(QtCore.QSize(111, 21))
+        self.sel_baudR_combo_box.setMaximumSize(QtCore.QSize(211, 21))
         self.sel_baudR_combo_box.setObjectName("sel_baudR_combo_box")
 
         self.run_meas_butt = QtWidgets.QPushButton(self.butt_frame)
-        self.run_meas_butt.setGeometry(QtCore.QRect(10, 530, 201, 41))
+        self.run_meas_butt.setGeometry(QtCore.QRect(10, 550, 211, 41))
         self.run_meas_butt.setMinimumSize(QtCore.QSize(201, 41))
         self.run_meas_butt.setMaximumSize(QtCore.QSize(211, 41))
         self.run_meas_butt.setObjectName("run_meas_butt")
 
         self.connect_butt = QtWidgets.QPushButton(self.butt_frame)
-        self.connect_butt.setGeometry(QtCore.QRect(130, 480, 81, 41))
+        self.connect_butt.setGeometry(QtCore.QRect(140, 490, 81, 52))
         self.connect_butt.setMinimumSize(QtCore.QSize(81, 41))
-        self.connect_butt.setMaximumSize(QtCore.QSize(81, 41))
+        self.connect_butt.setMaximumSize(QtCore.QSize(81, 100))
         self.connect_butt.setObjectName("connect_butt")
 
         self.refresh_com_butt = QtWidgets.QPushButton(self.butt_frame)
-        self.refresh_com_butt.setGeometry(QtCore.QRect(130, 450, 81, 21))
-        self.refresh_com_butt.setMinimumSize(QtCore.QSize(81, 21))
-        self.refresh_com_butt.setMaximumSize(QtCore.QSize(81, 21))
+        self.refresh_com_butt.setGeometry(QtCore.QRect(170, 420, 51, 31))
+        self.refresh_com_butt.setMinimumSize(QtCore.QSize(21, 21))
+        self.refresh_com_butt.setMaximumSize(QtCore.QSize(81, 81))
+        self.refresh_com_butt.setIcon(QtGui.QIcon("d:\casdev\sbxs\github_com\AqPlot\Src\GUI\_refresh_icon.png"))
+        self.refresh_com_butt.setIconSize(QtCore.QSize(31, 31))
         self.refresh_com_butt.setObjectName("refresh_com_butt")
 
         font = QtGui.QFont()
@@ -127,7 +115,7 @@ class View:
         font.setWeight(50)
 
         self.baudR_com_label = QtWidgets.QLabel(self.butt_frame)
-        self.baudR_com_label.setGeometry(QtCore.QRect(10, 470, 111, 29))
+        self.baudR_com_label.setGeometry(QtCore.QRect(10, 490, 111, 29))
         self.baudR_com_label.setMinimumSize(QtCore.QSize(91, 29))
         self.baudR_com_label.setMaximumSize(QtCore.QSize(111, 29))
 
@@ -138,7 +126,7 @@ class View:
         self.baudR_com_label.setObjectName("baudR_com_label")
 
         self.sel_com_label = QtWidgets.QLabel(self.butt_frame)
-        self.sel_com_label.setGeometry(QtCore.QRect(10, 420, 111, 29))
+        self.sel_com_label.setGeometry(QtCore.QRect(10, 430, 111, 29))
         self.sel_com_label.setMinimumSize(QtCore.QSize(91, 29))
         self.sel_com_label.setMaximumSize(QtCore.QSize(111, 29))
 
@@ -158,21 +146,15 @@ class View:
 
 
     def create_graph_view(self):
-        self.graphicsView = PlotWidget(self.centralwidget)
-        self.graphicsView.setMinimumSize(QtCore.QSize(893, 582))
-        self.graphicsView.setObjectName("graphicsView")
+        #self.graphicsView = PlotWidget(self.centralwidget)
+        self.graphicsView = PlotWindow([])
+        #self.graphicsView.setMinimumSize(QtCore.QSize(893, 582))
+        #self.graphicsView.setObjectName("graphicsView")
         self.central_gridLayout.addWidget(self.graphicsView)
 
-        #self.plot = Plot({}, False, self)
-        #self.plot.setMinimumSize(QtCore.QSize(893, 582))
-        #self.plot.setObjectName("graphicsView")
-        #self.central_gridLayout.addWidget(self.plot)
-        #self.plot.show()
-        #self.plot.plot.viewbox.setXRange(0, 10)
-
-    def create_signal_list(self):
+    def create_signal_panel(self):
         self.signals_box_label = QtWidgets.QLabel(self.butt_frame)
-        self.signals_box_label.setGeometry(QtCore.QRect(11, 85, 60, 29))
+        self.signals_box_label.setGeometry(QtCore.QRect(10, 60, 60, 29))
         self.signals_box_label.setMinimumSize(QtCore.QSize(60, 29))
         self.signals_box_label.setMaximumSize(QtCore.QSize(60, 29))
 
@@ -186,17 +168,33 @@ class View:
         self.signals_box_label.setObjectName("signals_box_label")
 
         self.signal_list_box = QtWidgets.QListWidget(self.butt_frame)
-        #self.signal_list_box = ListWidget(self.butt_frame)
-        self.signal_list_box.setGeometry(QtCore.QRect(10, 120, 201, 281))
+        self.signal_list_box.setGeometry(QtCore.QRect(10, 90, 211, 281))
         self.signal_list_box.setObjectName("listWidget")
         self.signal_list_box.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
         self.signals_box_label.raise_()
-        #self.signal_list_box.addItem("signal")
 
-    def fill_up_signal_list(self, signal_name):
+        self.plot_butt = QtWidgets.QPushButton(self.butt_frame)
+        self.plot_butt.setGeometry(QtCore.QRect(10, 380, 211, 35))
+        self.plot_butt.setIcon(QtGui.QIcon("d:\casdev\sbxs\github_com\AqPlot\Src\GUI\plot_icon.png"))
+        self.plot_butt.setIconSize(QtCore.QSize(33,33))
+        self.plot_butt.setObjectName("plot_butt")
+        self.plot_butt.raise_()
+
+        self.open_meas_butt = QtWidgets.QPushButton(self.butt_frame)
+        self.open_meas_butt.setGeometry(QtCore.QRect(10, 10, 201, 31))
+        self.open_meas_butt.setMinimumSize(QtCore.QSize(201, 31))
+        self.open_meas_butt.setMaximumSize(QtCore.QSize(201, 31))
+        self.open_meas_butt.setObjectName("open_meas_butt")
+        self.open_meas_butt.raise_()
+
+    def fill_up_signal_list(self, signal_list):
         self.signal_list_box.clear()
-        for signal in signal_name:
-            self.signal_list_box.addItem(signal)
+        for signal in signal_list:
+            item = QtWidgets.QListWidgetItem()
+            item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
+            item.setCheckState(QtCore.Qt.Unchecked)
+            item.setText(signal)
+            self.signal_list_box.addItem(item)
 
     def fill_up_COM_list(self, items):
         self.sel_com_combo_box.clear()
@@ -214,6 +212,10 @@ class View:
         path = QtWidgets.QFileDialog.getExistingDirectory(self.main_window, window_title)
         return path
 
+    def get_saved_file_name(self, window_title, filter=''):
+        path_name, unused = QtWidgets.QFileDialog.getSaveFileName(self.main_window, window_title, filter=filter)
+        return path_name
+
     def msg_box(self,p_str_title,p_str_msg):
         QtWidgets.QMessageBox.question(self.main_window,p_str_title,p_str_msg, QtWidgets.QMessageBox.Ok)
 
@@ -229,12 +231,13 @@ class View:
     def retranslateUi(self):
         self.main_window.setWindowTitle(self._translate("MainWindow", "AqPlot"))
         self.open_meas_butt.setText(self._translate("MainWindow", "Open Measurement"))
-        self.clr_scr.setText(self._translate("MainWindow", "Clear Screen"))
+        #self.clr_scr.setText(self._translate("MainWindow", "Clear Screen"))
+        #self.plot_butt.setText(self._translate("MainWindow", "Plot"))
         self.signals_box_label.setText(self._translate("MainWindow", "Signals"))
         self.sel_com_label.setText(self._translate("MainWindow", "Select COM"))
         self.run_meas_butt.setText(self._translate("MainWindow", "Run \n"" Measurement"))
         self.connect_butt.setText(self._translate("MainWindow", "Connect"))
-        self.refresh_com_butt.setText(self._translate("MainWindow", "Refresh COM"))
+        #self.refresh_com_butt.setText(self._translate("MainWindow", "Refresh COM"))
         self.baudR_com_label.setText(self._translate("MainWindow", "Bauderate"))
 
 

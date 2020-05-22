@@ -1,23 +1,27 @@
+from PyQt5 import QtWidgets, QtGui
 import sys
 import threading
 import serial
 import serial.tools.list_ports
-from aqplot_model import *
-from aqplot_view import *
-
+import ctypes
+import aqplot_model as aq_model
+import aqplot_view as aq_view
 
 
 class Controller:
     def __init__(self):
         self.app = QtWidgets.QApplication([])
-        self.view = View(QtWidgets.QMainWindow())
-        self.model = Model(self.view)
+        self.app.setWindowIcon(QtGui.QIcon('d:\casdev\sbxs\github_com\AqPlot\Src\GUI\plot_icon.png'))
+        'make the icon visible also on the taskbar'
+        myappid = 'Aq Plot'  # arbitrary string
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+        self.view = aq_view.View(QtWidgets.QMainWindow())
+        self.model = aq_model.Model(self.view)
         self.serial = SerThread("AqPlot", self.model)
 
 
         self.view.open_meas_butt.clicked.connect(self.open_and_load_meas_file)
-        self.view.clr_scr.clicked.connect(self.clear_graph)
-        self.view.signal_list_box.itemSelectionChanged.connect(self.add_signal_to_plot)
+        self.view.plot_butt.clicked.connect(self.add_signal_to_plot)
         self.view.openFileAction_menubar.triggered.connect(self.open_and_load_meas_file)
         self.view.opendspAction_menubar.triggered.connect(self.open_and_load_dsp_file)
         self.view.save_measAction_menubar.triggered.connect(self.model.save_measurement_mdf)
@@ -43,35 +47,56 @@ class Controller:
     '''
     def open_and_load_meas_file(self):
         file_name = self.view.open_file_dialog("*.mf4;*.csv")
-        import_status = self.model.import_signals(file_name)
+        if file_name: #check if a file is selected or user pressed cancel
+            if file_name.endswith('.csv'):
+                import_status = self.model.import_signals(file_name)
+            elif file_name.endswith('.mf4'):
+                import_status = self.model.import_signals_mdf(file_name)
+            else:
+                import_status = "not_supported"
+        else:
+            import_status = "no_selection"
 
         if import_status == "empty_file":
             self.view.msg_box("Error", "The file is empty")
         elif import_status == "no_data":
             self.view.msg_box("Error", "The measurement has no data")
+        elif import_status == "not_supported":
+            self.view.msg_box("Error", "File type not supported")
+        elif import_status == "no_selection":
+            pass
         else:
             self.view.fill_up_signal_list(self.model.signal_names)
 
     def open_and_load_dsp_file(self):
         file_name = self.view.open_file_dialog("*.csv")
-        import_status = self.model.import_signal_info(file_name)
+        if file_name:  # check if a file is selected or user pressed cancel
+            import_status = self.model.import_signal_info(file_name)
 
-        if import_status == "empty_file":
-            self.view.msg_box("Error", "The file is empty")
-        elif import_status == "no_data":
-            self.view.msg_box("Error", "The measurement has no data")
-        elif import_status == "SomeError":
-            self.view.msg_box("Error", "Unknown")
+            if import_status == "empty_file":
+                self.view.msg_box("Error", "The file is empty")
+            elif import_status == "no_data":
+                self.view.msg_box("Error", "The measurement has no data")
+            elif import_status == "SomeError":
+                self.view.msg_box("Error", "Unknown")
+            elif import_status == "nan_fields":
+                self.view.msg_box("Error", "Some fileds don't have data, but Nan")
+            else:
+                self.view.msg_box("Info", "File succesfully imported")
         else:
-            self.view.msg_box("Info", "File succesfully imported")
+            pass
 
-    def aq_plot(self, data):
-        self.view.graphicsView.plot(data, pen='g')
+    def aq_plot(self, signal_list):
+        self.view.graphicsView.plot.add_new_channels(signal_list)
+
 
     def add_signal_to_plot(self):
-        selected_signal = self.view.signal_list_box.selectedItems()
-        for signal in selected_signal:
-            self.aq_plot(self.model.meas_data[signal.text()])
+        nr_signals = self.view.signal_list_box.count()
+        signal_names = []
+        for item_idx in range(nr_signals):
+            if self.view.signal_list_box.item(item_idx).checkState() == 2:
+                signal_names.append(self.view.signal_list_box.item(item_idx).text())
+        self.aq_plot(self.model.meas_data.select(signal_names))
 
 
     def clear_graph(self):
@@ -88,17 +113,19 @@ class Controller:
             if not ports:
                 self.view.fill_up_COM_list(["No ports available"])
             else:
-                port_list = []
+                port_desc_list = []
+                self.port_dict = {}
                 for port, desc, hwid in sorted(ports):
-                    port_list.append(port)
-                self.view.fill_up_COM_list(port_list)
+                    port_desc_list.append(desc)
+                    self.port_dict[desc] = port
+                self.view.fill_up_COM_list(port_desc_list)
 
     def c_serial_select_com_port(self, port):
         '''
         This method shall be used to send the selected port
         to the serial driver
         '''
-        self.serial.set_port(port)
+        self.serial.set_port(self.port_dict[port])
 
     def c_serial_select_baud_rate(self, baudrate):
         '''
@@ -109,13 +136,16 @@ class Controller:
             self.serial.set_baud(baudrate)
 
     def c_serial_run_measurement(self):
-        status = self.serial.serial_run_measurement()
-        if status is "run":
-            self.view.run_meas_butt.setText(self.view._translate("MainWindow", "Stop \n Measurement"))
-        elif status is "stop":
-            self.view.run_meas_butt.setText(self.view._translate("MainWindow", "Run \n Measurement"))
+        if self.model.preSignal_list:
+            status = self.serial.serial_run_measurement()
+            if status is "run":
+                self.view.run_meas_butt.setText(self.view._translate("MainWindow", "Stop \n Measurement"))
+            elif status is "stop":
+                self.view.run_meas_butt.setText(self.view._translate("MainWindow", "Run \n Measurement"))
+            else:
+                self.view.msg_box("Error", "No connection established\nAbort")
         else:
-            self.view.msg_box("Error", "No connection established\nAbort")
+            self.view.msg_box("Warning", "Please load signal info file")
 
     def c_serial_open_close_connection(self):
         serial_status = self.serial.serial_connection_control()

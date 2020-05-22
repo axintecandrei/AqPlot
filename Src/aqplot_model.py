@@ -5,14 +5,13 @@ import csv
 class Model:
     def __init__(self, view):
         self.view = view
-        self.number_of_signals = int()
+        self.signal_names = []
         self.preSignal_list = []
         self.Signal_list = []
         self.timestamp = []
-        self.import_signal_info('d:\casdev\sbxs\github_com\TESS\TESS_Sim\Measurements\_signal_info.csv')
         self.save_ok = 0
 
-    def import_signals(self, file_name):
+    def import_signals_csv(self, file_name):
         with open(file_name, newline='') as f:
             if f != "":
                 try:
@@ -31,6 +30,13 @@ class Model:
         else:
             return "no_data"
 
+    def import_signals_mdf(self, file_name):
+        try:
+            self.meas_data = MDF(file_name)
+            self.signal_names = sorted(self.meas_data.channels_db, key=lambda x: x.lower())
+        except:
+            return "Error opening file"
+
     def import_signal_info(self, signal_info_file):
         '''decode some sort of a2l file (it will be a txt file)
             some info like:
@@ -40,6 +46,7 @@ class Model:
             - unit
             - resolution
         '''
+        #clear the preSignal list in care it will be called multiple times
         self.preSignal_list.clear()
         return_msg = 0
         with open(signal_info_file) as dsp:
@@ -56,16 +63,20 @@ class Model:
                 return return_msg
 
         if len(self.dsp_content) != 0:
-            for signal_idx in range(self.dsp_content.SignalName.count()):
-                # check if all field are not Nan
-                #TODO
-                pre_signal = preSignal(name=self.dsp_content.SignalName[signal_idx],
-                                       samples=[],
-                                       size=self.dsp_content.Size[signal_idx],
-                                       byteoffset=int(self.dsp_content.ByteOffset[signal_idx]),
-                                       unit=self.dsp_content.Unit[signal_idx],
-                                       resolution=self.dsp_content.Resolution[signal_idx])
-                self.preSignal_list.append(pre_signal)
+            # check so no fileds are Nan
+            if not self.dsp_content.isnull().values.any():
+                for signal_idx in range(self.dsp_content.SignalName.count()):
+                     pre_signal = preSignal(name=self.dsp_content.SignalName[signal_idx],
+                                           samples=[],
+                                           size=self.dsp_content.Size[signal_idx],
+                                           byteoffset=int(self.dsp_content.ByteOffset[signal_idx]),
+                                           unit=self.dsp_content.Unit[signal_idx],
+                                           resolution=self.dsp_content.Resolution[signal_idx])
+                     self.preSignal_list.append(pre_signal)
+
+            else:
+                return_msg = "nan_fields"
+                return return_msg
         else:
             return_msg = "no_data"
             return return_msg
@@ -113,17 +124,18 @@ class Model:
                                     unit=presignal.unit
                                     )
                     self.Signal_list.append(signal)
-                meas_path = self.view.get_dir_path("Select folder")
-                meas_file_name = self.view.get_string_from_user("","Measurement name")
+
+                meas_path_name = self.view.get_saved_file_name("Select destination", "*.mf4")
+
                 with MDF(version='4.10') as new_meas:
                     new_meas.append(self.Signal_list, "AqPlot")
-                    new_meas.save(meas_path +'/' + meas_file_name)
+                    new_meas.save(meas_path_name)
                 self.save_ok = 1
                 self.view.msg_box("Info", "Succesfull!")
             elif user_reply == no:
                 pass
             #discard all data
-            if  self.save_ok:
+            if self.save_ok:
                 for preSignal in self.preSignal_list:
                     preSignal.samples.clear()
                 self.Signal_list.clear()
