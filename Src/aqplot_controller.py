@@ -25,16 +25,18 @@ class Controller:
         self.view.openFileAction_menubar.triggered.connect(self.open_and_load_meas_file)
         self.view.opendspAction_menubar.triggered.connect(self.open_and_load_dsp_file)
         self.view.save_measAction_menubar.triggered.connect(self.model.save_measurement_mdf)
-        self.view.sel_com_combo_box.activated[str].connect(self.c_serial_select_com_port)
-        self.view.sel_baudR_combo_box.activated[str].connect(self.c_serial_select_baud_rate)
-        self.view.fill_up_baud_rate_list()
+        self.view.exit_Action_menubar.triggered.connect(self._quit)
+
 
         self.view.connect_butt.clicked.connect(self.c_serial_open_close_connection)
         self.view.refresh_com_butt.clicked.connect(self.c_serial_get_host_com_ports)
         self.view.run_meas_butt.clicked.connect(self.c_serial_run_measurement)
+        self.view.sel_com_combo_box.activated[str].connect(self.c_serial_select_com_port)
+        self.view.sel_baudR_combo_box.activated[str].connect(self.c_serial_select_baud_rate)
+        self.view.fill_up_baud_rate_list()
 
     def run(self):
-        self.serial.start()
+        #self.serial.start()
         self.app.exec()
 
 
@@ -168,6 +170,7 @@ class Controller:
     def _quit(self):
         get_user_ans = self.view.ask_user_binary_question('Exit', 'Are you sure?')
         if get_user_ans == 16384:
+
             sys.exit()
 
 

@@ -2,15 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1de8c07e-54ff-46c1-a5f0-d37bfcdf1c53" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/TestManager/test_threading.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/AqPlot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/AqPlot.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/GUI/aqplot_view_designer.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Src/GUI/aqplot_view_designer.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Src/aqplot_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/Src/aqplot_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/aqplot_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Src/aqplot_model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Src/aqplot_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/Src/aqplot_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestManager/test_mdf_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/zArchive/test_mdf_plot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,8 +46,8 @@
       <recent name="D:\.github.com\AqPlot" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.aqplot_controller">
-    <configuration name="aqplot_controller" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.test_threading">
+    <configuration name="aqplot_base_dev" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="AqPlot" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -57,11 +55,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Src" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/zArchive" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Src/aqplot_controller.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/zArchive/aqplot_base_dev.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -91,19 +89,40 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main_window" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="DAXil" />
+    <configuration name="aqplot_controller" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="AqPlot" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../github.conti.de/DAXil/asammdf/gui/ui" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Src" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../github.conti.de/DAXil/asammdf/gui/ui/main_window.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Src/aqplot_controller.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="aqplot_old" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="AqPlot" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/zArchive" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/zArchive/aqplot_old.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -133,28 +152,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="setup" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="DAXil" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../github.conti.de/DAXil" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../github.conti.de/DAXil/setup.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test_mdf_plot" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="test_threading" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="AqPlot" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -166,7 +164,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="D:\casdev\sbxs\github_com\AqPlot\zArchive\test_mdf_plot.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TestManager/test_threading.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -177,11 +175,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test_threading" />
+        <item itemvalue="Python.aqplot_base_dev" />
+        <item itemvalue="Python.aqplot_old" />
         <item itemvalue="Python.aqplot_controller" />
         <item itemvalue="Python.prepare_exe" />
-        <item itemvalue="Python.setup" />
-        <item itemvalue="Python.test_mdf_plot" />
-        <item itemvalue="Python.main_window" />
       </list>
     </recent_temporary>
   </component>
@@ -204,31 +202,31 @@
     </state>
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589032970518" />
     <state x="2334" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1587905501865" />
-    <state x="2660" y="275" key="FileChooserDialogImpl" timestamp="1590094843069">
+    <state x="2660" y="275" key="FileChooserDialogImpl" timestamp="1590348021171">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589136665923" />
-    <state x="2660" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590094843069" />
-    <state width="1877" height="339" key="GridCell.Tab.0.bottom" timestamp="1590159124949">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2660" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590348021171" />
+    <state width="1877" height="189" key="GridCell.Tab.0.bottom" timestamp="1590389515242">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="339" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590159124949" />
-    <state width="1877" height="262" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590134377290" />
-    <state width="1877" height="339" key="GridCell.Tab.0.center" timestamp="1590159124949">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="339" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590306158172" />
+    <state width="1877" height="189" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590389515242" />
+    <state width="1877" height="189" key="GridCell.Tab.0.center" timestamp="1590389515242">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="339" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590159124949" />
-    <state width="1877" height="262" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590134377290" />
-    <state width="1877" height="339" key="GridCell.Tab.0.left" timestamp="1590159124949">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="339" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590306158171" />
+    <state width="1877" height="189" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590389515242" />
+    <state width="1877" height="189" key="GridCell.Tab.0.left" timestamp="1590389515242">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="339" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590159124949" />
-    <state width="1877" height="262" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590134377290" />
-    <state width="1877" height="339" key="GridCell.Tab.0.right" timestamp="1590159124949">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="339" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590306158171" />
+    <state width="1877" height="189" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590389515242" />
+    <state width="1877" height="189" key="GridCell.Tab.0.right" timestamp="1590389515242">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="339" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590159124949" />
-    <state width="1877" height="262" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590134377290" />
+    <state width="1877" height="339" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590306158171" />
+    <state width="1877" height="189" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590389515242" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1590138319709">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

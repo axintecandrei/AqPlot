@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/AqPlot.iml" filepath="$PROJECT_DIR$/.idea/AqPlot.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../github.conti.de/DAXil/.idea/DAXil.iml" filepath="$PROJECT_DIR$/../../github.conti.de/DAXil/.idea/DAXil.iml" />
     </modules>
   </component>
 </project>

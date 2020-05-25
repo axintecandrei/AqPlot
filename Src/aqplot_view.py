@@ -66,6 +66,11 @@ class View:
         self.save_measAction_menubar.setStatusTip('Save the acquired data into a mdf file')
         self.fileMenu.addAction(self.save_measAction_menubar)
 
+        self.exit_Action_menubar = QtWidgets.QAction("&Exit", self.main_window)
+        self.exit_Action_menubar.setShortcut("Alt+F4")
+        self.exit_Action_menubar.setStatusTip('Close application')
+        self.fileMenu.addAction(self.exit_Action_menubar)
+
         self.helpMenu = self.mainMenu.addMenu('&Help')
         self.about = QtWidgets.QAction("&About", self.main_window)
         self.about.setShortcut("F1")
