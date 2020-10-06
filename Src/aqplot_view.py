@@ -4,6 +4,7 @@ from asammdf.gui.widgets.plot import Plot, PlotSignal
 from asammdf.gui.widgets.plot_standalone import PlotWindow
 from asammdf.gui.widgets.list import ListWidget
 from asammdf.gui.widgets.tree import TreeWidget
+
 class View:
     def __init__(self, MainWindow):
         self.main_window = MainWindow
@@ -110,7 +111,7 @@ class View:
         self.refresh_com_butt.setGeometry(QtCore.QRect(170, 420, 51, 31))
         self.refresh_com_butt.setMinimumSize(QtCore.QSize(21, 21))
         self.refresh_com_butt.setMaximumSize(QtCore.QSize(81, 81))
-        self.refresh_com_butt.setIcon(QtGui.QIcon("d:\casdev\sbxs\github_com\AqPlot\Src\GUI\_refresh_icon.png"))
+        self.refresh_com_butt.setIcon(QtGui.QIcon("d:\casdev\sandbxs\github\AqPlot\Src\GUI\_refresh_icon.png"))
         self.refresh_com_butt.setIconSize(QtCore.QSize(31, 31))
         self.refresh_com_butt.setObjectName("refresh_com_butt")
 
@@ -180,7 +181,7 @@ class View:
 
         self.plot_butt = QtWidgets.QPushButton(self.butt_frame)
         self.plot_butt.setGeometry(QtCore.QRect(10, 380, 211, 35))
-        self.plot_butt.setIcon(QtGui.QIcon("d:\casdev\sbxs\github_com\AqPlot\Src\GUI\plot_icon.png"))
+        self.plot_butt.setIcon(QtGui.QIcon("d:\casdev\sandbxs\github\AqPlot\Src\GUI\plot_icon.ico"))
         self.plot_butt.setIconSize(QtCore.QSize(33,33))
         self.plot_butt.setObjectName("plot_butt")
         self.plot_butt.raise_()

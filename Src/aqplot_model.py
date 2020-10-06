@@ -20,7 +20,7 @@ class Model:
                     return "empty_file"
         if len(self.meas_data) != 0:
             self.signal_names = self.meas_data.keys()
-            #arrange time axis
+            # arrange time axis
             offset = self.meas_data['Time'][0]
             time_base = 0.0002
             for i in range(0, len(self.meas_data['Time'])):
@@ -38,15 +38,15 @@ class Model:
             return "Error opening file"
 
     def import_signal_info(self, signal_info_file):
-        '''decode some sort of a2l file (it will be a txt file)
+        """decode some sort of a2l file (it will be a txt file)
             some info like:
             - signal name
             - data type/size
             - byte offset
             - unit
             - resolution
-        '''
-        #clear the preSignal list in care it will be called multiple times
+        """
+        # clear the preSignal list in care it will be called multiple times
         self.preSignal_list.clear()
         return_msg = 0
         with open(signal_info_file) as dsp:
@@ -88,11 +88,11 @@ class Model:
 
     def save_measurement_csv(self):
         signal_name_list = []
-        #wirte header with signal names
+        # wirte header with signal names
         f = open('../TestManager/output_test.csv', 'w+')
         csv_out = csv.writer(f, dialect='excel')
         for signal in self.preSignal_list:
-           signal_name_list.append(signal.name)
+            signal_name_list.append(signal.name)
 
         csv_out.writerow(signal_name_list)
         for sample_idx in range(0, len(self.preSignal_list[0].samples)):
@@ -104,19 +104,19 @@ class Model:
         f.close()
 
     def save_measurement_mdf(self):
-        #ask user if wants to save the measurement
+        # ask user if wants to save the measurement
         yes = 16384
         no = 65536
-        #check if there is something to be saved
+        # check if there is something to be saved
         if self.preSignal_list[0].samples:
             user_reply = self.view.ask_user_binary_question('Save Measurement', 'Want to save measurement?')
             if user_reply == yes:
-                #create timestamp
+                # create timestamp
                 timestamps = []
                 for sample_idx in range(len(self.preSignal_list[0].samples)):
                     timestamps.append(sample_idx * 0.0002)
 
-                #create the Signal list with the members from preSignal ones
+                # create the Signal list with the members from preSignal ones
                 for presignal in self.preSignal_list:
                     signal = Signal(samples=np.array(presignal.samples, dtype=presignal.dtype),
                                     timestamps=np.array(timestamps, dtype=np.float32),
@@ -134,14 +134,13 @@ class Model:
                 self.view.msg_box("Info", "Succesfull!")
             elif user_reply == no:
                 pass
-            #discard all data
+            # discard all data
             if self.save_ok:
                 for preSignal in self.preSignal_list:
                     preSignal.samples.clear()
                 self.Signal_list.clear()
         else:
             self.view.msg_box("Info", "Nothing to save.")
-
 
     def scale(self, val, in_min, in_max, out_min, out_max):
         return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
@@ -153,11 +152,10 @@ class preSignal(object):
                  size=None,
                  byteoffset=None,
                  unit="",
-                 resolution=0.0
-    ):
+                 resolution=0.0):
         self.name = name
         self.samples = samples
-        self.size= size
+        self.size = size
         self.byteoffset = byteoffset
         self.unit = unit
         self.resolution = resolution

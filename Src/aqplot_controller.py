@@ -11,7 +11,7 @@ import aqplot_view as aq_view
 class Controller:
     def __init__(self):
         self.app = QtWidgets.QApplication([])
-        self.app.setWindowIcon(QtGui.QIcon('d:\casdev\sbxs\github_com\AqPlot\Src\GUI\plot_icon.png'))
+        self.app.setWindowIcon(QtGui.QIcon('d:\casdev\sandbxs\github\AqPlot\Src\GUI\plot_icon.ico'))
         'make the icon visible also on the taskbar'
         myappid = 'Aq Plot'  # arbitrary string
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
@@ -25,7 +25,7 @@ class Controller:
         self.view.openFileAction_menubar.triggered.connect(self.open_and_load_meas_file)
         self.view.opendspAction_menubar.triggered.connect(self.open_and_load_dsp_file)
         self.view.save_measAction_menubar.triggered.connect(self.model.save_measurement_mdf)
-        self.view.exit_Action_menubar.triggered.connect(self._quit)
+        self.view.exit_Action_menubar.triggered.connect(self.quit)
 
 
         self.view.connect_butt.clicked.connect(self.c_serial_open_close_connection)
@@ -36,7 +36,7 @@ class Controller:
         self.view.fill_up_baud_rate_list()
 
     def run(self):
-        #self.serial.start()
+        self.serial.start()
         self.app.exec()
 
 
@@ -91,7 +91,6 @@ class Controller:
     def aq_plot(self, signal_list):
         self.view.graphicsView.plot.add_new_channels(signal_list)
 
-
     def add_signal_to_plot(self):
         nr_signals = self.view.signal_list_box.count()
         signal_names = []
@@ -99,7 +98,6 @@ class Controller:
             if self.view.signal_list_box.item(item_idx).checkState() == 2:
                 signal_names.append(self.view.signal_list_box.item(item_idx).text())
         self.aq_plot(self.model.meas_data.select(signal_names))
-
 
     def clear_graph(self):
         self.view.graphicsView.clear()
@@ -140,9 +138,9 @@ class Controller:
     def c_serial_run_measurement(self):
         if self.model.preSignal_list:
             status = self.serial.serial_run_measurement()
-            if status is "run":
+            if status == "run":
                 self.view.run_meas_butt.setText(self.view._translate("MainWindow", "Stop \n Measurement"))
-            elif status is "stop":
+            elif status == "stop":
                 self.view.run_meas_butt.setText(self.view._translate("MainWindow", "Run \n Measurement"))
             else:
                 self.view.msg_box("Error", "No connection established\nAbort")
@@ -151,13 +149,13 @@ class Controller:
 
     def c_serial_open_close_connection(self):
         serial_status = self.serial.serial_connection_control()
-        if serial_status is "serial_open":
+        if serial_status == "serial_open":
             self.view.connect_butt.setText(self.view._translate("MainWindow", "Disconnect"))
-        elif serial_status is "serial_close":
+        elif serial_status == "serial_close":
             self.view.connect_butt.setText(self.view._translate("MainWindow", "Connect"))
-        elif serial_status is "serial_error_access_denied":
+        elif serial_status == "serial_error_access_denied":
             self.view.msg_box("Error", "Acces Denied To COM")
-        elif serial_status is "error_unknown":
+        elif serial_status == "error_unknown":
             self.view.msg_box("Error", "Could not connect\n\nHint:\n-check the COM\n-port in use\nError Unknown - comment this to see the expection")
 
     def c_serial_end_meas_clbk(self):
@@ -167,13 +165,11 @@ class Controller:
 
         pass
 
-    def _quit(self):
+    def \
+            quit(self):
         get_user_ans = self.view.ask_user_binary_question('Exit', 'Are you sure?')
         if get_user_ans == 16384:
-
             sys.exit()
-
-
 
 class SerThread(threading.Thread):
     def __init__(self, thread_name, model):
@@ -207,20 +203,20 @@ class SerThread(threading.Thread):
             self.ser.close()
             return "serial_close"
         else:
-            try:
+            #try:
                 self.ser.open()
                 return "serial_open"
-            except PermissionError:
-                return "serial_error_access_denied"
-            except:
-                return "error_unknown"
+            #except PermissionError:
+             #   return "serial_error_access_denied"
+            #except:
+             #   return "error_unknown"
 
     def serial_run_measurement(self):
         if self.ser.is_open:
-            if self.DasState is 'StandBy':
+            if self.DasState == 'StandBy':
                 self.DasState = 'StartOfMeas'
                 return "run"
-            elif self.DasState is not 'StandBy':
+            elif self.DasState != 'StandBy':
                 self.DasState = 'StopMeas'
                 return "stop"
         else:
