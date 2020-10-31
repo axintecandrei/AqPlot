@@ -114,7 +114,7 @@ class Model:
                 # create timestamp
                 timestamps = []
                 for sample_idx in range(len(self.preSignal_list[0].samples)):
-                    timestamps.append(sample_idx * 0.0002)
+                    timestamps.append(sample_idx * 0.0001)
 
                 # create the Signal list with the members from preSignal ones
                 for presignal in self.preSignal_list:

@@ -11,7 +11,7 @@ import aqplot_view as aq_view
 class Controller:
     def __init__(self):
         self.app = QtWidgets.QApplication([])
-        self.app.setWindowIcon(QtGui.QIcon('d:\casdev\sandbxs\github\AqPlot\Src\GUI\plot_icon.ico'))
+        self.app.setWindowIcon(QtGui.QIcon('D:\.github.com\AqPlot\Src\GUI\plot_icon.ico'))
         'make the icon visible also on the taskbar'
         myappid = 'Aq Plot'  # arbitrary string
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
@@ -126,6 +126,7 @@ class Controller:
         to the serial driver
         '''
         self.serial.set_port(self.port_dict[port])
+        print(self.port_dict[port])
 
     def c_serial_select_baud_rate(self, baudrate):
         '''
@@ -189,7 +190,7 @@ class SerThread(threading.Thread):
         self.commands = {'Cmd_StartMeas': chr(0x31).encode(),
                          'Cmd_StopMeas' : chr(0x30).encode()}
 
-        self.input_pack_size = 30
+        self.input_pack_size = 16
     # gets called when thread is started with .start()
     def run(self):
         while True:
@@ -203,13 +204,13 @@ class SerThread(threading.Thread):
             self.ser.close()
             return "serial_close"
         else:
-            #try:
+            try:
                 self.ser.open()
                 return "serial_open"
-            #except PermissionError:
-             #   return "serial_error_access_denied"
-            #except:
-             #   return "error_unknown"
+            except PermissionError:
+                return "serial_error_access_denied"
+            except:
+                return "error_unknown"
 
     def serial_run_measurement(self):
         if self.ser.is_open:
@@ -229,7 +230,7 @@ class SerThread(threading.Thread):
         while self.ser.inWaiting() >= nr_of_bytes:
             ecu_pack = list(self.ser.read(nr_of_bytes))
             #print(ecu_pack)
-            ecu_pack[24] = self.ser.inWaiting()
+            ecu_pack[12] = self.ser.inWaiting()
             '''send data to model for processing'''
             self.model.get_pack_from_ecu(ecu_pack)
 
