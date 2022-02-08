@@ -11,7 +11,7 @@ import aqplot_view as aq_view
 class Controller:
     def __init__(self):
         self.app = QtWidgets.QApplication([])
-        self.app.setWindowIcon(QtGui.QIcon('D:\.github.com\AqPlot\Src\GUI\plot_icon.ico'))
+        #self.app.setWindowIcon(QtGui.QIcon("c:\Users\NXF70809\Documents\Laboratory\AqPlot\Src\GUI\plot_icon.ico"))
         'make the icon visible also on the taskbar'
         myappid = 'Aq Plot'  # arbitrary string
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)

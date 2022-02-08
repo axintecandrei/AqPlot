@@ -111,7 +111,7 @@ class View:
         self.refresh_com_butt.setGeometry(QtCore.QRect(170, 420, 51, 31))
         self.refresh_com_butt.setMinimumSize(QtCore.QSize(21, 21))
         self.refresh_com_butt.setMaximumSize(QtCore.QSize(81, 81))
-        self.refresh_com_butt.setIcon(QtGui.QIcon("D:\.github.com\AqPlot\Src\GUI\_refresh_icon.png"))
+        #self.refresh_com_butt.setIcon(QtGui.QIcon("c:\Users\NXF70809\Documents\Laboratory\AqPlot\Src\GUI\_refresh_icon.png"))
         self.refresh_com_butt.setIconSize(QtCore.QSize(31, 31))
         self.refresh_com_butt.setObjectName("refresh_com_butt")
 
@@ -181,7 +181,7 @@ class View:
 
         self.plot_butt = QtWidgets.QPushButton(self.butt_frame)
         self.plot_butt.setGeometry(QtCore.QRect(10, 380, 211, 35))
-        self.plot_butt.setIcon(QtGui.QIcon("D:\.github.com\AqPlot\Src\GUI\plot_icon.ico"))
+        #self.plot_butt.setIcon(QtGui.QIcon("c:\Users\NXF70809\Documents\Laboratory\AqPlot\Src\GUI\plot_icon.ico"))
         self.plot_butt.setIconSize(QtCore.QSize(33,33))
         self.plot_butt.setObjectName("plot_butt")
         self.plot_butt.raise_()
@@ -238,12 +238,12 @@ class View:
         self.main_window.setWindowTitle(self._translate("MainWindow", "AqPlot"))
         self.open_meas_butt.setText(self._translate("MainWindow", "Open Measurement"))
         #self.clr_scr.setText(self._translate("MainWindow", "Clear Screen"))
-        #self.plot_butt.setText(self._translate("MainWindow", "Plot"))
+        self.plot_butt.setText(self._translate("MainWindow", "Plot"))
         self.signals_box_label.setText(self._translate("MainWindow", "Signals"))
         self.sel_com_label.setText(self._translate("MainWindow", "Select COM"))
         self.run_meas_butt.setText(self._translate("MainWindow", "Run \n"" Measurement"))
         self.connect_butt.setText(self._translate("MainWindow", "Connect"))
-        #self.refresh_com_butt.setText(self._translate("MainWindow", "Refresh COM"))
+        self.refresh_com_butt.setText(self._translate("MainWindow", "Refresh"))
         self.baudR_com_label.setText(self._translate("MainWindow", "Bauderate"))
 
 
