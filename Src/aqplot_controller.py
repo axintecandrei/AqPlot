@@ -7,6 +7,8 @@ import ctypes
 import aqplot_model as aq_model
 import aqplot_view as aq_view
 
+from time import sleep
+
 
 class Controller:
     def __init__(self):
@@ -143,6 +145,7 @@ class Controller:
                 self.view.run_meas_butt.setText(self.view._translate("MainWindow", "Stop \n Measurement"))
             elif status == "stop":
                 self.view.run_meas_butt.setText(self.view._translate("MainWindow", "Run \n Measurement"))
+                self.serial.DASHandler['StopMeas']()
             else:
                 self.view.msg_box("Error", "No connection established\nAbort")
         else:
@@ -190,7 +193,8 @@ class SerThread(threading.Thread):
         self.commands = {'Cmd_StartMeas': chr(0x31).encode(),
                          'Cmd_StopMeas' : chr(0x30).encode()}
 
-        self.input_pack_size = 16
+        self.input_pack_size = 6
+
     # gets called when thread is started with .start()
     def run(self):
         while True:
@@ -230,7 +234,6 @@ class SerThread(threading.Thread):
         while self.ser.inWaiting() >= nr_of_bytes:
             ecu_pack = list(self.ser.read(nr_of_bytes))
             #print(ecu_pack)
-            ecu_pack[12] = self.ser.inWaiting()
             '''send data to model for processing'''
             self.model.get_pack_from_ecu(ecu_pack)
 
@@ -268,8 +271,7 @@ class SerThread(threading.Thread):
         self.serial_tx(self.commands['Cmd_StopMeas'])
         # reconfigure port to flush all data from buffers
         # this way the next run data will be all new
-        self.ser.close()
-        self.ser.open()
+        sleep(0.001)
         self.DasState = 'StandBy'
 
 

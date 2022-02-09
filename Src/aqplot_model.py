@@ -10,6 +10,7 @@ class Model:
         self.Signal_list = []
         self.timestamp = []
         self.save_ok = 0
+        self.pack_size = 0 #number of bytes in a package
 
     def import_signals_csv(self, file_name):
         with open(file_name, newline='') as f:
@@ -66,13 +67,16 @@ class Model:
             # check so no fileds are Nan
             if not self.dsp_content.isnull().values.any():
                 for signal_idx in range(self.dsp_content.SignalName.count()):
-                     pre_signal = preSignal(name=self.dsp_content.SignalName[signal_idx],
-                                           samples=[],
-                                           size=self.dsp_content.Size[signal_idx],
-                                           byteoffset=int(self.dsp_content.ByteOffset[signal_idx]),
-                                           unit=self.dsp_content.Unit[signal_idx],
-                                           resolution=self.dsp_content.Resolution[signal_idx])
-                     self.preSignal_list.append(pre_signal)
+                    pre_signal = preSignal(name=self.dsp_content.SignalName[signal_idx],
+                                          samples=[],
+                                          size=self.dsp_content.Size[signal_idx],
+                                          byteoffset=int(self.dsp_content.ByteOffset[signal_idx]),
+                                          unit=self.dsp_content.Unit[signal_idx],
+                                          resolution=self.dsp_content.Resolution[signal_idx])
+                    self.preSignal_list.append(pre_signal)
+                    self.pack_size = pre_signal.byteoffset + pre_signal.size
+                    print(self.pack_size)
+
 
             else:
                 return_msg = "nan_fields"
