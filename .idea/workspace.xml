@@ -31,12 +31,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1de8c07e-54ff-46c1-a5f0-d37bfcdf1c53" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/AqPlot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/AqPlot.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/aqplot_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/Src/aqplot_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/aqplot_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Src/aqplot_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/aqplot_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/Src/aqplot_view.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +48,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="1aOIAj7fMSGWHieNX2zYSwApXOV" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -64,8 +62,8 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -89,6 +87,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/zArchive/aqplot_base_dev.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -105,11 +104,12 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\NXF70809\AppData\Local\Programs\Python\Python310\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Src" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Src/aqplot_controller.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -152,6 +152,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/zArchive/aqplot_old.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -173,6 +174,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Src/GUI/prepare_exe.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -194,6 +196,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TestManager/test_threading.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -224,8 +227,14 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1541002799084</updated>
+      <workItem from="1644338717928" duration="9285000" />
+      <workItem from="1644392419839" duration="10014000" />
+      <workItem from="1644497596792" duration="343000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -237,70 +246,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="844" y="388" width="440" height="481" key="FileChooserDialogImpl" timestamp="1603116594072">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="2764" y="388" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1599036270106" />
-    <state x="844" y="388" key="FileChooserDialogImpl/1920.0.1920.1040/0.0.1920.1040/921.1080.1366.728@0.0.1920.1040" timestamp="1603116594072" />
-    <state width="1899" height="250" key="GridCell.Tab.0.bottom" timestamp="1604154429257">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="305" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1598783295997" />
-    <state width="1899" height="250" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040/921.1080.1366.728@0.0.1920.1040" timestamp="1603205960102" />
-    <state width="1899" height="250" key="GridCell.Tab.0.bottom/1920.0.1920.1040/921.1080.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1604154429257" />
-    <state width="1899" height="250" key="GridCell.Tab.0.center" timestamp="1604154429257">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="305" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1598783295997" />
-    <state width="1899" height="250" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040/921.1080.1366.728@0.0.1920.1040" timestamp="1603205960101" />
-    <state width="1899" height="250" key="GridCell.Tab.0.center/1920.0.1920.1040/921.1080.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1604154429257" />
-    <state width="1899" height="250" key="GridCell.Tab.0.left" timestamp="1604154429256">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="305" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1598783295997" />
-    <state width="1899" height="250" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040/921.1080.1366.728@0.0.1920.1040" timestamp="1603205960101" />
-    <state width="1899" height="250" key="GridCell.Tab.0.left/1920.0.1920.1040/921.1080.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1604154429256" />
-    <state width="1899" height="250" key="GridCell.Tab.0.right" timestamp="1604154429257">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="305" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1598783295997" />
-    <state width="1899" height="250" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040/921.1080.1366.728@0.0.1920.1040" timestamp="1603205960102" />
-    <state width="1899" height="250" key="GridCell.Tab.0.right/1920.0.1920.1040/921.1080.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1604154429257" />
-    <state width="1899" height="374" key="GridCell.Tab.1.bottom" timestamp="1604137998444">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="374" key="GridCell.Tab.1.bottom/1920.0.1920.1040/0.0.1920.1040/921.1080.1366.728@0.0.1920.1040" timestamp="1603198192622" />
-    <state width="1899" height="374" key="GridCell.Tab.1.bottom/1920.0.1920.1040/921.1080.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1604137998444" />
-    <state width="1899" height="374" key="GridCell.Tab.1.center" timestamp="1604137998444">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="374" key="GridCell.Tab.1.center/1920.0.1920.1040/0.0.1920.1040/921.1080.1366.728@0.0.1920.1040" timestamp="1603198192621" />
-    <state width="1899" height="374" key="GridCell.Tab.1.center/1920.0.1920.1040/921.1080.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1604137998444" />
-    <state width="1899" height="374" key="GridCell.Tab.1.left" timestamp="1604137998444">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="374" key="GridCell.Tab.1.left/1920.0.1920.1040/0.0.1920.1040/921.1080.1366.728@0.0.1920.1040" timestamp="1603198192621" />
-    <state width="1899" height="374" key="GridCell.Tab.1.left/1920.0.1920.1040/921.1080.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1604137998444" />
-    <state width="1899" height="374" key="GridCell.Tab.1.right" timestamp="1604137998444">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="374" key="GridCell.Tab.1.right/1920.0.1920.1040/0.0.1920.1040/921.1080.1366.728@0.0.1920.1040" timestamp="1603198192621" />
-    <state width="1899" height="374" key="GridCell.Tab.1.right/1920.0.1920.1040/921.1080.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1604137998444" />
-    <state x="461" y="165" key="SettingsEditor" timestamp="1603206863561">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="461" y="165" key="SettingsEditor/1920.0.1920.1040/0.0.1920.1040/921.1080.1366.728@0.0.1920.1040" timestamp="1603206863561" />
-    <state x="667" y="224" width="585" height="592" key="find.popup" timestamp="1603113717198">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="667" y="224" width="585" height="592" key="find.popup/1920.0.1920.1040/0.0.1920.1040/921.1080.1366.728@0.0.1920.1040" timestamp="1603113717198" />
-    <state x="623" y="225" key="search.everywhere.popup" timestamp="1603205699290">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="623" y="225" key="search.everywhere.popup/1920.0.1920.1040/0.0.1920.1040/921.1080.1366.728@0.0.1920.1040" timestamp="1603205699290" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -308,5 +253,8 @@
         <watch expression="__exception__[2]" />
       </configuration>
     </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/AqPlot$aqplot_controller.coverage" NAME="aqplot_controller Coverage Results" MODIFIED="1644497939543" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Src" />
   </component>
 </project>
