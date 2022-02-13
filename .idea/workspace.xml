@@ -31,7 +31,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1de8c07e-54ff-46c1-a5f0-d37bfcdf1c53" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/AqPlot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/AqPlot.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/aqplot_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Src/aqplot_model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -229,7 +232,9 @@
       <updated>1541002799084</updated>
       <workItem from="1644338717928" duration="9285000" />
       <workItem from="1644392419839" duration="10014000" />
-      <workItem from="1644497596792" duration="343000" />
+      <workItem from="1644497596792" duration="655000" />
+      <workItem from="1644500816864" duration="1532000" />
+      <workItem from="1644582928775" duration="2363000" />
     </task>
     <servers />
   </component>
@@ -255,6 +260,6 @@
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/AqPlot$aqplot_controller.coverage" NAME="aqplot_controller Coverage Results" MODIFIED="1644497939543" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Src" />
+    <SUITE FILE_PATH="coverage/AqPlot$aqplot_controller.coverage" NAME="aqplot_controller Coverage Results" MODIFIED="1644734388319" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Src" />
   </component>
 </project>

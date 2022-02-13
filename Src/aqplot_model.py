@@ -11,6 +11,7 @@ class Model:
         self.timestamp = []
         self.save_ok = 0
         self.pack_size = 0 #number of bytes in a package
+        self.TimeStamp = 0.0002
 
     def import_signals_csv(self, file_name):
         with open(file_name, newline='') as f:
@@ -118,7 +119,7 @@ class Model:
                 # create timestamp
                 timestamps = []
                 for sample_idx in range(len(self.preSignal_list[0].samples)):
-                    timestamps.append(sample_idx * 0.0001)
+                    timestamps.append(sample_idx * self.TimeStamp)
 
                 # create the Signal list with the members from preSignal ones
                 for presignal in self.preSignal_list:
